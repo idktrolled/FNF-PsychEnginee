@@ -52,6 +52,9 @@ jobs:
           haxelib install lime --quiet
           haxelib install openfl --quiet
           haxelib run lime setup
+      - name: Build Android
+        run: |
+          haxelib run lime setup android
 
       - name: Rebuild hxcpp
         run: |
