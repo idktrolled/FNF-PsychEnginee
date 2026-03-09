@@ -1,80 +1,68 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build xd
+name: Build
 
-
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main, experimental ]
-  pull_request:
-    branches: [ main, experimental ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   buildAndroid:
     runs-on: ubuntu-latest
 
     env:
       ANDROID_SDK: /usr/local/lib/android/sdk
       ANDROID_HOME: /usr/local/lib/android/sdk
-      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/25.2.9519653
-  
-    steps:
-      - uses: actions/checkout@v4.1.7
+      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/23.1.7779620
 
-      - uses: krdlab/setup-haxe@master
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.4
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-      
-      - name: Install Android SDK
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install NDK
+      - name: Install Android packages
         run: |
-          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "ndk;25.2.9519653"
+          yes | $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager "platform-tools"
+          yes | $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager "platforms;android-30"
+          yes | $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3"
+          yes | $ANDROID_SDK/cmdline-tools/latest/bin/sdkmanager "ndk;23.1.7779620"
 
-      - name: Install Haxelib
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang g++ build-essential
+
+      - name: Setup Haxelib
         run: |
           haxelib setup ~/haxelib
           haxelib install hxcpp --quiet
           haxelib install lime --quiet
           haxelib install openfl --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-
-      - name: Skip SScript setup mode
-        run: echo 'oy9:showMacroty8:loopCosti25y10:includeAllfg' >> ~/settings.cocoa
-
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSIÓN
-        
-      - name: Setup lime
-        run: |
           haxelib run lime setup
 
-      - name: Setup Android
+      - name: Rebuild hxcpp
         run: |
-          yes | haxelib run lime setup android
           haxelib run lime rebuild hxcpp android
-          
 
-      - name: Compile Android
-        run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
+      - name: Build Android
+        run: |
+          haxelib run lime build android
 
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v4.3.4
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: androidBuild
           path: export/release/android/bin
