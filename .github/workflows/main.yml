@@ -62,8 +62,9 @@ jobs:
 
       - name: Setup Android
         run: |
-          haxelib run lime rebuild hxcpp android
           haxelib run lime setup android
+          haxelib run lime rebuild hxcpp android
+          
 
       - name: Compile Android
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
