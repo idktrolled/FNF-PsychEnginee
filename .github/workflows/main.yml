@@ -23,7 +23,7 @@ jobs:
     env:
       ANDROID_SDK: /usr/local/lib/android/sdk
       ANDROID_HOME: /usr/local/lib/android/sdk
-      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk-bundle
+      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk/25.2.9519653
   
     steps:
       - uses: actions/checkout@v4.1.7
@@ -37,6 +37,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Install NDK
+        run: |
+          sdkmanager "ndk;25.2.9519653"
 
       - name: Install Android SDK
         uses: android-actions/setup-android@v3
