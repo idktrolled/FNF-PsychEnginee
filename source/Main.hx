@@ -1,6 +1,6 @@
 package;
 
-#if android
+#if !android
 import android.content.Context;
 #end
 
@@ -76,7 +76,7 @@ class Main extends Sprite
 		#end
 
 		// Credits to MAJigsaw77 (he's the og author for this code)
-		#if android
+		#if !android
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
