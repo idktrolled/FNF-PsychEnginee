@@ -48,9 +48,9 @@ jobs:
       - name: Setup Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib install hxcpp --quiet
-          haxelib install lime --quiet
-          haxelib install openfl --quiet
+          haxelib install hxcpp > /dev/null --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
           haxelib run lime setup
       - name: Build Android
         run: |
