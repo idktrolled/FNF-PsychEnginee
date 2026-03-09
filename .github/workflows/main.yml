@@ -61,7 +61,9 @@ jobs:
         run: echo "${{github.run_id}}" > VERSIÓN
 
       - name: Setup Android
-        run: haxelib run lime setup android
+        run: |
+          haxelib run lime rebuild hxcpp android
+          haxelib run lime setup android
 
       - name: Compile Android
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
