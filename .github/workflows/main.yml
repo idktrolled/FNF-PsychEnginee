@@ -20,6 +20,11 @@ jobs:
   buildAndroid:
     runs-on: ubuntu-latest
 
+    env:
+      ANDROID_SDK: /usr/local/lib/android/sdk
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_NDK_ROOT: /usr/local/lib/android/sdk/ndk-bundle
+  
     steps:
       - uses: actions/checkout@v4.1.7
 
