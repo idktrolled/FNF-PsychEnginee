@@ -50,7 +50,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
       - name: Rebuild hxcpp
         run: |
-          haxelib run lime rebuild hxcpp
+          haxelib run lime rebuild hxcpp android
 
       - name: Build Android
         run: |
