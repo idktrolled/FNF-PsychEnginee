@@ -1,5 +1,6 @@
 package backend;
 
+#if !android
 #if DISCORD_ALLOWED
 import Sys.sleep;
 import sys.thread.Thread;
@@ -266,4 +267,5 @@ private final class DiscordPresence
 		return __presence.endTimestamp = value;
 	}
 }
+#end
 #end
