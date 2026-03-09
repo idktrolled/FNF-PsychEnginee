@@ -58,7 +58,7 @@ jobs:
 
       - name: Rebuild hxcpp
         run: |
-          haxelib run lime rebuild hxcpp android
+          haxelib run lime rebuild hxcpp
 
       - name: Build Android
         run: |
