@@ -59,10 +59,14 @@ jobs:
 
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSIÓN
+        
+      - name: Setup lime
+        run: |
+          haxelib run lime setup
 
       - name: Setup Android
         run: |
-          haxelib run lime setup android
+          yes | haxelib run lime setup android
           haxelib run lime rebuild hxcpp android
           
 
