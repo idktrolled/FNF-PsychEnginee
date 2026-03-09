@@ -37,12 +37,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Install NDK
-        run: |
-          sdkmanager "ndk;25.2.9519653"
-
+      
       - name: Install Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "ndk;25.2.9519653"
 
       - name: Install Haxelib
         run: |
