@@ -17,7 +17,7 @@ jobs:
           haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp
           chmod +x ./setup/unix.sh
           sh ./setup/unix.sh
-          haxelib install extension-androidtools 2.0.1
+          haxelib install extension-androidtools 1.8.3
           haxelib run lime rebuild hxcpp
       - name: configure android
         run: |
