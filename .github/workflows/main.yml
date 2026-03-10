@@ -31,4 +31,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: build
-          path: export/release/android/bin/app/build/outputs/apk/debug
+          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
