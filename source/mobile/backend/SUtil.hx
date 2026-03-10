@@ -3,11 +3,6 @@ package mobile.backend;
 import lime.system.System as LimeSystem;
 import haxe.io.Path;
 import haxe.Exception;
-#if android
-import android.Tools;
-import android.callback.CallBack;
-#end
-
 /**
  * A storage class for mobile.
  * @author Mihai Alexandru (M.A. Jigsaw)
